@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'ruby-rpn-calculator/ruby-rpn-calculator'
+
+RubyRPNCalculator.new
