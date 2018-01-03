@@ -10,7 +10,7 @@ class RubyRPNCalculator
 
       case @config['input-type']
       when :CLI then take_input
-      when :file then raise "Unsupported input type"
+      when :file then raise "Unsupported Input Type"
       end
     end
 
