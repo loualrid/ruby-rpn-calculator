@@ -14,6 +14,8 @@ class RubyRPNCalculator
       validate_input($stdin.gets.chomp)
     end
 
+    # [TODO] leaving this in just in case there's a scenario where parsing the
+    # configuration would be useful, right now it's all set without user input
     def validate_configuration
       return if @config['run-modes'].include?(:skip_validation)
 
@@ -22,6 +24,7 @@ class RubyRPNCalculator
 
     def validate_input(input)
       input = input_error('nothing') if input.blank?
+      input = input_error('letters') if !input.scan(/[a-pr-zA-Z]/).empty?
 
       input
     end

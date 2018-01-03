@@ -10,14 +10,16 @@ class RubyRPNCalculator
     @config = config
     @state  = state
 
-    @config['start-time'] = Time.now
-    @config['run-modes']  ||= []
-    @config['input-type'] = nil
-    @config['helper']     = Helper.new(@config, @state)
-    @config['validator']  = Validator.new(@config, @state)
-    @config['calculator'] = Calculator.new(@config, @state)
+    @config['start-time']           = Time.now
+    @config['run-modes']          ||= []
+    @config['inputs-to-evaluate'] ||= 0
+    @config['input-type']           = nil
+    @config['helper']               = Helper.new(@config, @state)
+    @config['validator']            = Validator.new(@config, @state)
+    @config['calculator']           = Calculator.new(@config, @state)
 
     @state['input-heap'] = []
+    @state['all-inputs'] = []
 
     @config['initializer'] = Initializer.new(@config, @state)
 
