@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class RubyRPNCalculator
   class Calculator
     def initialize(config, state)
@@ -9,10 +10,10 @@ class RubyRPNCalculator
       return if @config['run-modes'].include?(:skip_execution)
 
       case @config['input-type']
-      when :CLI then take_input_loop
-      when :file then raise "Unsupported Input Type"
+      when :CLI       then take_input_loop
+      when :file      then raise "Unsupported Input Type"
       when :websocket then raise "Unsupported Input Type"
-      when :tcpsocket  then raise "Unsupported Input Type"
+      when :tcpsocket then raise "Unsupported Input Type"
       end
     end
 
@@ -64,7 +65,7 @@ class RubyRPNCalculator
       current_result = @config['processor'].process_input(input)
 
       return if @config['run-modes'].include?(:quiet)
-      
+
       if @config['run-modes'].include?(:no_table)
         puts current_result
       else
