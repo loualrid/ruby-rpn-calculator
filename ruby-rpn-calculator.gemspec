@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 # Maintain your gem's version:
@@ -23,8 +25,8 @@ Gem::Specification.new do |s|
   s.test_files = Dir['spec/**/*']
 
   s.required_ruby_version = '>= 1.9.1'
-  s.add_dependency 'terminal-table', '>= 1.7'
   s.add_dependency 'activesupport'
+  s.add_dependency 'terminal-table', '>= 1.7'
 
   s.add_development_dependency 'rspec', '>= 3.5.0'
   s.add_development_dependency 'rubocop', '>= 0.43.0'
