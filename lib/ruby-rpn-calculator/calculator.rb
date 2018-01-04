@@ -14,15 +14,11 @@ class RubyRPNCalculator
       end
     end
 
-    def input_into_calculator(input)
-      #TBI
-    end
-
     def render_results
       #TBI
     end
 
-    def supported_operands
+    def supported_operators
       %w(+ - / *)
     end
 

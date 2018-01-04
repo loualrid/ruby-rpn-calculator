@@ -20,7 +20,7 @@ class RubyRPNCalculator
 
       input = input_error('nothing') if input.blank?
       input = input_error('letters') if !input.scan(/[a-pr-zA-Z]/).empty?
-      input = input_error('operand with no preceding numbers') if !validated_operand_on_stack?(input)
+      input = input_error('operator with no preceding numbers') if !validated_operator_on_stack?(input)
 
       @state['all-valid-inputs'] << input
 
@@ -32,25 +32,26 @@ class RubyRPNCalculator
     def input_error(specific_error)
       puts(
         "What you entered contains #{specific_error}, we'll ask for a valid " \
-        "input again so please use a numeric value or +, -, * or / " \
+        "input again so please use a numeric value or +, -, * or /. If you" \
+        "wish to quit, please enter q."
       ) unless @config['run-modes'].include?(:quiet)
 
       validate_input($stdin.gets.chomp)
     end
 
-    def validated_operand_on_stack?(input)
+    def validated_operator_on_stack?(input)
       return true if input =~ /\d/
 
-      return false if @state['input-stack'].empty? && @config['calculator'].supported_operands.include?(input)
+      return false if @state['input-stack'].empty? && @config['calculator'].supported_operators.include?(input)
 
-      return false if !valid_to_insert_operand_on_stack?(input)
+      return false if !valid_to_insert_operator_on_stack?(input)
 
       true
     end
 
-    def valid_to_insert_operand_on_stack?(input)
+    def valid_to_insert_operator_on_stack?(input)
       @state['input-stack'].count { |i| i =~ /\d/ } >
-        (@state['input-stack'].count { |i| @config['calculator'].supported_operands.include?(i) } + 1)
+        (@state['input-stack'].count { |i| @config['calculator'].supported_operators.include?(i) } + 1)
     end
 
     def check_run_modes_to_escape_validation_loop?

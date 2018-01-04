@@ -9,10 +9,10 @@ describe RubyRPNCalculator::Validator, type: :initialization do
       expect( @rrpnc.dump_state['all-valid-inputs'] ).to be == %w(q q q)
     end
 
-    it "should not let the number of operands exceed the number of numbers" do
+    it "should not let the number of operators exceed the number of numbers" do
       initialize_and_run_calc_with_inputs(%w(1 2 3 + - - q))
 
-      expect( @rrpnc.dump_state['input-stack'] ).to be == %w(1 2 3 + -)
+      expect( @rrpnc.dump_state['input-stack'] ).to be == %w(0)
       expect( @rrpnc.dump_state['all-inputs'] ).to be == %w(1 2 3 + - - q)
       expect( @rrpnc.dump_state['all-valid-inputs'] ).to be == %w(1 2 3 + - q)
     end
