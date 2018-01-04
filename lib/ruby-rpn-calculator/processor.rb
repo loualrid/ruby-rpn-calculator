@@ -13,10 +13,10 @@ class RubyRPNCalculator
 
     def process_stack(token)
       if @config['calculator'].supported_operators.include?(token)
-        operand_two = @state['input-stack'].shift # pop from the start of the array
-        operand_one = @state['input-stack'].shift
+        operand_two = @state['input-stack'].pop.to_f
+        operand_one = @state['input-stack'].pop.to_f
         result = Math.class_eval("#{operand_one} #{token} #{operand_two}")
-        @state['input-stack'].insert(0, result.to_s)
+        @state['input-stack'].push(result.to_s)
       elsif !@config['calculator'].supported_operators.include?(token)
         @state['input-stack'] << token
       end
