@@ -12,13 +12,13 @@ class RubyRPNCalculator
     @config = config
     @state  = state
 
-    @config['start-time']           = Time.now
-    @config['run-modes']          ||= []
-    @config['input-type']           = nil
-    @config['helper']               = Helper.new(@config, @state)
-    @config['validator']            = Validator.new(@config, @state)
-    @config['calculator']           = Calculator.new(@config, @state)
-    @config['processor']            = Processor.new(@config, @state) #stack manager
+    @config['start-time']  = Time.now
+    @config['run-modes'] ||= []
+    @config['input-type']  = nil
+    @config['helper']      = Helper.new(@config, @state)
+    @config['validator']   = Validator.new(@config, @state)
+    @config['calculator']  = Calculator.new(@config, @state)
+    @config['processor']   = Processor.new(@config, @state) # stack manager
 
     @state['input-stack']       = []
     @state['all-inputs']        = []

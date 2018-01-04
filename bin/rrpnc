@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 #!/usr/bin/env ruby
-require 'ruby-rpn-calculator/ruby-rpn-calculator'
+require 'ruby-rpn-calculator/ruby_rpn_calculator'
 
 RubyRPNCalculator.new
