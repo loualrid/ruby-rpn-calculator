@@ -22,6 +22,10 @@ class RubyRPNCalculator
       #TBI
     end
 
+    def supported_operands
+      %w(+ - / *)
+    end
+
     private
 
     def take_input_loop
@@ -29,21 +33,15 @@ class RubyRPNCalculator
     end
 
     def take_input
-      render_results unless @config['run-modes'].include?(:quiet)
-
       print('> ') unless @config['run-modes'].include?(:quiet)
 
       input = @config['validator'].validate_input($stdin.gets.chomp)
 
-      @state['all-inputs'] << input
-
       return if input == 'q'
 
-      insert_input_into_heap(input)
-    end
+      @config['processor'].process_input(input)
 
-    def insert_input_into_heap(input)
-      #TBI
+      render_results unless @config['run-modes'].include?(:quiet)
     end
 
     # [TODO] handle end of file

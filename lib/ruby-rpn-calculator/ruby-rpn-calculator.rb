@@ -12,14 +12,15 @@ class RubyRPNCalculator
 
     @config['start-time']           = Time.now
     @config['run-modes']          ||= []
-    @config['inputs-to-evaluate'] ||= 0
     @config['input-type']           = nil
     @config['helper']               = Helper.new(@config, @state)
     @config['validator']            = Validator.new(@config, @state)
     @config['calculator']           = Calculator.new(@config, @state)
+    @config['processor']            = Processor.new(@config, @state) #stack manager
 
-    @state['input-heap'] = []
-    @state['all-inputs'] = []
+    @state['input-stack']      = []
+    @state['all-inputs']       = []
+    @state['all-valid-inputs'] = []
 
     @config['initializer'] = Initializer.new(@config, @state)
 
@@ -34,10 +35,6 @@ class RubyRPNCalculator
 
   def dump_state
     @config['helper'].dump_state
-  end
-
-  def input_into_calculator(input)
-    @config['calculator'].input_into_calculator(input)
   end
 
   def render_results
