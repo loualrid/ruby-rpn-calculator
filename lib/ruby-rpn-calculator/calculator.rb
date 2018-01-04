@@ -15,7 +15,23 @@ class RubyRPNCalculator
     end
 
     def render_results
-      #TBI
+      results = Terminal::Table.new do |table|
+        table.add_row @state['all-valid-inputs']
+        table.add_row :separator unless @state['results-for-table'].empty?
+
+        @state['results-for-table'].each do |row|
+          table_length = @state['all-valid-inputs'].length
+
+          table.add_row :separator if row == @state['results-for-table'].last
+
+          # ensure the results table is always the right length
+          table.add_row row.insert(-1, *Array.new(table_length - row.length))
+        end
+      end
+
+      puts("#{results}\n\n") unless @config['run-modes'].include?(:quiet)
+
+      results
     end
 
     def supported_operators

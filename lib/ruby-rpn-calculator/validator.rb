@@ -32,7 +32,7 @@ class RubyRPNCalculator
     def input_error(specific_error)
       puts(
         "What you entered contains #{specific_error}, we'll ask for a valid " \
-        "input again so please use a numeric value or +, -, * or /. If you" \
+        "input again so please use a numeric value or +, -, * or /. If you " \
         "wish to quit, please enter q."
       ) unless @config['run-modes'].include?(:quiet)
 
@@ -40,7 +40,7 @@ class RubyRPNCalculator
     end
 
     def validated_operator_on_stack?(input)
-      return true if input =~ /\d/
+      return true if input =~ /[\d|q]/
 
       return false if @state['input-stack'].empty? && @config['calculator'].supported_operators.include?(input)
 

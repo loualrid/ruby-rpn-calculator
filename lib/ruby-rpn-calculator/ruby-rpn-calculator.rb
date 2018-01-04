@@ -18,9 +18,10 @@ class RubyRPNCalculator
     @config['calculator']           = Calculator.new(@config, @state)
     @config['processor']            = Processor.new(@config, @state) #stack manager
 
-    @state['input-stack']      = []
-    @state['all-inputs']       = []
-    @state['all-valid-inputs'] = []
+    @state['input-stack']       = []
+    @state['all-inputs']        = []
+    @state['all-valid-inputs']  = []
+    @state['results-for-table'] = []
 
     @config['initializer'] = Initializer.new(@config, @state)
 

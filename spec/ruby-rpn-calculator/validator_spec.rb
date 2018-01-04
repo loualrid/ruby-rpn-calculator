@@ -16,5 +16,13 @@ describe RubyRPNCalculator::Validator, type: :initialization do
       expect( @rrpnc.dump_state['all-inputs'] ).to be == %w(1 2 3 + - - q)
       expect( @rrpnc.dump_state['all-valid-inputs'] ).to be == %w(1 2 3 + - q)
     end
+
+    it "should not allow 1 operator and 1 number" do
+      initialize_and_run_calc_with_inputs(%w(1 + q))
+
+      expect( @rrpnc.dump_state['input-stack'] ).to be == %w(1)
+      expect( @rrpnc.dump_state['all-inputs'] ).to be == %w(1 + q)
+      expect( @rrpnc.dump_state['all-valid-inputs'] ).to be == %w(1 q)
+    end
   end
 end
