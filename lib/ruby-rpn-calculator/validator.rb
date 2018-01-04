@@ -34,35 +34,37 @@ class RubyRPNCalculator
     private
 
     def input_error(specific_error)
-      puts(
-        "What you entered contains #{specific_error}, we'll ask for a valid " \
-        "input again so please use a numeric value or " \
-        "#{@config['calculator'].supported_operators.to_sentence}.\nIf you " \
-        "wish to quit, please enter q."
-      ) unless @config['run-modes'].include?(:quiet)
+      unless @config['run-modes'].include?(:quiet)
+        puts(
+          "What you entered contains #{specific_error}, we'll ask for a valid " \
+          "input again so please use a numeric value or " \
+          "#{@config['calculator'].supported_operators.to_sentence}.\nIf you " \
+          "wish to quit, please enter q."
+        )
+      end
 
       validate_input($stdin.gets.chomp)
     end
 
     def validated_operator_on_stack?(input)
-      return true if input =~ /[\d|q]/
+      return true if input.match?(/[\d|q]/)
 
       return false if @state['input-stack'].empty? && @config['calculator'].supported_operators.include?(input)
 
-      return false if !valid_to_insert_operator_on_stack?(input)
+      return false if !valid_to_insert_operator_on_stack?
 
       true
     end
 
-    def valid_to_insert_operator_on_stack?(input)
+    def valid_to_insert_operator_on_stack?
       @state['input-stack'].count { |i| i =~ /\d/ } >
         (@state['input-stack'].count { |i| @config['calculator'].supported_operators.include?(i) } + 1)
     end
 
     def check_run_modes_to_escape_validation_loop?
-      if @config['run-modes'].include?(:prevent_validation_loop)
-        @state['all-inputs'].last == 'q' && @state['all-inputs'].length > 1
-      end
+      return if @config['run-modes'].include?(:prevent_validation_loop)
+
+      @state['all-inputs'].last == 'q' && @state['all-inputs'].length > 1
     end
   end
 end
