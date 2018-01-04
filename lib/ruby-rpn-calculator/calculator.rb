@@ -11,6 +11,8 @@ class RubyRPNCalculator
       case @config['input-type']
       when :CLI then take_input_loop
       when :file then raise "Unsupported Input Type"
+      when :websocket then raise "Unsupported Input Type"
+      when :tcpsocket  then raise "Unsupported Input Type"
       end
     end
 
@@ -35,7 +37,7 @@ class RubyRPNCalculator
     end
 
     def supported_operators
-      %w(+ - / *)
+      %w(+ - / * %)
     end
 
     private
@@ -47,15 +49,27 @@ class RubyRPNCalculator
     def take_input
       print('> ') unless @config['run-modes'].include?(:quiet)
 
-      input = @config['validator'].validate_input($stdin.gets.chomp)
+      begin
+        input = @config['validator'].validate_input($stdin.gets.chomp)
+      rescue NoMethodError => e
+        # Handle the EOF / CTRL+D case
+        @state['all-inputs'] << 'q'
+        input = 'q'
+      end
 
       return if input == 'q'
 
       @state['all-valid-inputs'] << input
 
-      @config['processor'].process_input(input)
+      current_result = @config['processor'].process_input(input)
 
-      render_results unless @config['run-modes'].include?(:quiet)
+      unless @config['run-modes'].include?(:quiet)
+        if @config['run-modes'].include?(:no_table)
+          puts current_result
+        else
+          render_results
+        end
+      end
     end
 
     # [TODO] handle end of file

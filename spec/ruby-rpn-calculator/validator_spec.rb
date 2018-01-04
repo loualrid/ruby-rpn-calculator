@@ -3,7 +3,7 @@ require 'spec_helper'
 describe RubyRPNCalculator::Validator, type: :initialization do
   describe "invalid input", type: :calc do
     it "should not let the client input gibberish" do
-      initialize_and_run_calc_with_inputs(%w(C B + q))
+      initialize_and_run_calc_with_inputs(%w(C B _ = + q))
 
       expect( @rrpnc.dump_state['input-stack'] ).to be == []
       expect( @rrpnc.dump_state['all-valid-inputs'] ).to be == []

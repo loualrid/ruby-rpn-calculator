@@ -22,6 +22,10 @@ class RubyRPNCalculator
       input = input_error('letters') if !input.scan(/[a-pr-zA-Z]/).empty?
       input = input_error('operator with no preceding numbers') if !validated_operator_on_stack?(input)
 
+      if input.scan(/[\d|q|#{@config['calculator'].supported_operators.join('|\\')}]/).empty?
+        input = input_error('not a number or an operator')
+      end
+
       input
     end
 
@@ -30,7 +34,8 @@ class RubyRPNCalculator
     def input_error(specific_error)
       puts(
         "What you entered contains #{specific_error}, we'll ask for a valid " \
-        "input again so please use a numeric value or +, -, * or /.\nIf you " \
+        "input again so please use a numeric value or " \
+        "#{@config['calculator'].supported_operators.to_sentence}.\nIf you " \
         "wish to quit, please enter q."
       ) unless @config['run-modes'].include?(:quiet)
 
