@@ -18,7 +18,7 @@ class RubyRPNCalculator
         operand_two = @state['input-stack'].pop.to_f
         operand_one = @state['input-stack'].pop.to_f
 
-        result = Math.class_eval("#{operand_one} #{token} #{operand_two}")
+        result = Math.class_eval("#{operand_one} #{token} #{operand_two}", __FILE__, __LINE__)
 
         process_results_for_table(operand_two, operand_one, token, result)
 
