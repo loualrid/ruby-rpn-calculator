@@ -51,7 +51,7 @@ class RubyRPNCalculator
 
       begin
         input = @config['validator'].validate_input($stdin.gets.chomp)
-      rescue NoMethodError => e
+      rescue NoMethodError
         # Handle the EOF / CTRL+D case
         @state['all-inputs'] << 'q'
         input = 'q'
@@ -63,12 +63,12 @@ class RubyRPNCalculator
 
       current_result = @config['processor'].process_input(input)
 
-      unless @config['run-modes'].include?(:quiet)
-        if @config['run-modes'].include?(:no_table)
-          puts current_result
-        else
-          render_results
-        end
+      return if @config['run-modes'].include?(:quiet)
+      
+      if @config['run-modes'].include?(:no_table)
+        puts current_result
+      else
+        render_results
       end
     end
 
