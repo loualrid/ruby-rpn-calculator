@@ -51,6 +51,8 @@ class RubyRPNCalculator
 
       return if input == 'q'
 
+      @state['all-valid-inputs'] << input
+
       @config['processor'].process_input(input)
 
       render_results unless @config['run-modes'].include?(:quiet)

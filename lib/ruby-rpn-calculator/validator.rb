@@ -22,8 +22,6 @@ class RubyRPNCalculator
       input = input_error('letters') if !input.scan(/[a-pr-zA-Z]/).empty?
       input = input_error('operator with no preceding numbers') if !validated_operator_on_stack?(input)
 
-      @state['all-valid-inputs'] << input
-
       input
     end
 
@@ -32,7 +30,7 @@ class RubyRPNCalculator
     def input_error(specific_error)
       puts(
         "What you entered contains #{specific_error}, we'll ask for a valid " \
-        "input again so please use a numeric value or +, -, * or /. If you " \
+        "input again so please use a numeric value or +, -, * or /.\nIf you " \
         "wish to quit, please enter q."
       ) unless @config['run-modes'].include?(:quiet)
 
