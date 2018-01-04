@@ -5,7 +5,7 @@ require 'spec_helper'
 describe RubyRPNCalculator::Initializer, type: :initialization do
   describe "#initialize_configuration" do
     before do
-      @modes = [:skip_validation, :skip_execution]
+      @modes = %i(skip_validation skip_execution)
     end
 
     it "should default input-type to CLI if no ARGS are given to the program" do

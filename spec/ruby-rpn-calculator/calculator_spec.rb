@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe RubyRPNCalculator::Calculator, type: [:initialization, :calc] do
+describe RubyRPNCalculator::Calculator, type: %i(initialization calc) do
   describe "valid run" do
     it "should output 6 from 2, 4, and +" do
       initialize_and_run_calc_with_inputs(%w(2 4 + q))
