@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RubyRPNCalculator
   class Validator
     def initialize(config, state)

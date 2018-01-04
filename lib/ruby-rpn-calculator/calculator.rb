@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RubyRPNCalculator
   class Calculator
     def initialize(config, state)

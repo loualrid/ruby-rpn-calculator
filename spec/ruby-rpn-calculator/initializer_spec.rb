@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe RubyRPNCalculator::Initializer, type: :initialization do
@@ -11,16 +12,6 @@ describe RubyRPNCalculator::Initializer, type: :initialization do
       initialize_and_set_stdin_to([], @modes)
 
       expect( @rrpnc.dump_config['input-type'] ).to be == :CLI
-    end
-
-    it "should set input-type to file if an ARG is given to the program" do
-      ARGV[0] = "test.rb"
-
-      initialize_and_set_stdin_to([], @modes)
-
-      expect( @rrpnc.dump_config['input-type'] ).to be == :file
-
-      ARGV.shift
     end
   end
 end

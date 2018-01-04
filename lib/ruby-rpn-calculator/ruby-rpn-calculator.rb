@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'terminal-table'
 require 'terminal-table/import'
 require 'active_support'
